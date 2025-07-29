@@ -10,7 +10,7 @@ import SwiftUI
 struct ContentView: View {
     var body: some View {
         TabView {
-            pokedex()
+            PokedexView()
                 .tabItem {
                     Label("Pokedex", systemImage: "book.closed")
                 }

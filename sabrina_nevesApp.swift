@@ -7,11 +7,27 @@
 
 import SwiftUI
 
-@main
-struct sabrina_nevesApp: App {
-    var body: some Scene {
-        WindowGroup {
-            ContentView()
+struct ContentView: View {
+    var body: some View {
+        TabView {
+            pokedex()
+                .tabItem {
+                    Label("Pokedex", systemImage: "book.closed")
+                }
+            
+            estatistica()
+                .tabItem {
+                    Label("Estatística", systemImage: "chart.line.uptrend.xyaxis")
+            
+                }
+            
+                .padding()
         }
+    }
+}
+
+struct ContentView_Previews: PreviewProvider {
+    static var previews: some View {
+        ContentView()
     }
 }

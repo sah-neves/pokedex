@@ -1,8 +1,8 @@
 //
 //  PokedexView.swift
-//  aula6projeto
+//  pokedexSabrina
 //
-//  Created by Aluno Mack on 29/07/25.
+//  Created by Aluno Mack on 30/07/25.
 //
 
 import SwiftUI
@@ -190,22 +190,43 @@ let pokemons: [Pokemon] = [
 
 
 struct PokedexView: View {
+    @State private var searchText = ""
+
     var body: some View {
       
-        ScrollView {
-            ForEach(pokemons) { pokemon in
-                HStack {
-                    AsyncImage(url: URL(string: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/\(pokemon.id).png")) { image in
-                        image.image
+        NavigationStack{
+            List{
+                ForEach(pokemons) { pokemon in
+                    HStack {
+                        AsyncImage(url: URL(string: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/\(pokemon.id).png")) { image in
+                            image.image
+                        }
+                        Text(pokemon.name)
+                            .textCase(.uppercase)
                     }
-                    Text(pokemon.name)
                 }
             }
+            .searchable(text: $searchText)
+
+                
             
+//            .navigationTitle(Text("Pokemon"))
+            .toolbar {
+                ToolbarItem(placement: .principal) {
+                    Text("Pokemon")
+                        .font(.title.bold())
+                }
+            }
         }
     }
 }
 
-#Preview {
-    PokedexView()
+
+struct PokedexView_Previews: PreviewProvider {
+    static var previews: some View {
+        PokedexView()
+    }
 }
+//#Preview {
+//    PokedexView()
+//}

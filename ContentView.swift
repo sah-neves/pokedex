@@ -1,8 +1,8 @@
 //
 //  ContentView.swift
-//  sabrina neves
+//  aula6projeto
 //
-//  Created by Mack Aluno on 29/07/25.
+//  Created by Aluno Mack on 29/07/25.
 //
 
 import SwiftUI
@@ -12,23 +12,17 @@ struct ContentView: View {
         TabView {
             PokedexView()
                 .tabItem {
-                    Label("Pokedex", systemImage: "book.closed")
-                }
-            
-            estatistica()
+                    Label("Pokedex", systemImage: "magnifyingglass")
+                }; poketypes()
+            Text("Estatísticas")
                 .tabItem {
-                    Label("Estatística", systemImage: "chart.line.uptrend.xyaxis")
-            
+                    Label("Estatísticas", systemImage: "waveform.path.ecg")
                 }
-            
-                .padding()
         }
     }
+
 }
 
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
-    }
+#Preview {
+    ContentView()
 }
-

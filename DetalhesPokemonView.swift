@@ -1,6 +1,6 @@
 //
 //  DetalhesPokemonView.swift
-//  PokedexSabrina
+//  caiopoke
 //
 //  Created by Aluno Mack on 31/07/25.
 //
@@ -23,15 +23,21 @@ struct DetalhesPokemonView: View {
                 
             Text("Tipos")
                 .font(.headline)
-            Text("HP")
+            Text("HP:\(pokemon.HP)")
             
-            Text("HP")
+            
+            Text("ATK:\(pokemon.ATK)")
 
-            Text("HP")
+            Text("DEF:\(pokemon.DEF)")
 
-            Text("HP")
+            Text("VEL:\(pokemon.Vel)")
 
-            Text("HP")
+            Text("Special:\(pokemon.Special)")
+
+            Text("TOTAL:\(pokemon.Total)")
+
+            
+            
 
             Spacer()
             
@@ -45,3 +51,4 @@ struct DetalhesPokemonView_Previews: PreviewProvider {
         ContentView()
     }
 }
+

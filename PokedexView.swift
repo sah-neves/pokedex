@@ -1,8 +1,8 @@
 //
 //  PokedexView.swift
-//  aula6projeto
+//  PokedexSabrina
 //
-//  Created by Aluno Mack on 29/07/25.
+//  Created by Aluno Mack on 31/07/25.
 //
 
 import SwiftUI
@@ -28,7 +28,7 @@ enum ElementType: String {
     case ghost
 }
 
-struct Pokemon: Identifiable {
+struct Pokemon: Identifiable, Hashable {
     var id: Int
     var name: String
     var types: [ElementType]
@@ -188,24 +188,42 @@ let pokemons: [Pokemon] = [
     Pokemon(id: 151, name: "mew", types: [.psychic])
 ]
 
-
 struct PokedexView: View {
+    @State private var searchText = ""
+
+    var searchResults: [Pokemon] {
+        if searchText.isEmpty {
+            return pokemons
+        } else {
+            return pokemons.filter {
+                $0.name.lowercased().contains(searchText.lowercased())
+            }
+        }
+    }
+
     var body: some View {
-      
-        ScrollView {
-            ForEach(pokemons) { pokemon in
-                HStack {
-                    AsyncImage(url: URL(string: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/\(pokemon.id).png")) { image in
-                        image.image
-                    }
-                    Text(pokemon.name)
+        NavigationStack {
+            List {
+                ForEach(searchResults, id: \.self) { pokemon in
+                    NavigationLink("Detalhes", destination: DetalhesPokemonView(pokemon: pokemon))
+                        HStack {
+                                  AsyncImage(url: URL(string: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/\(pokemon.id).png")) { image in
+                                      image.image
+                                  }
+                                    Text(pokemon.name.capitalized)
+                                      
+                      }
                 }
             }
+            .searchable(text: $searchText)
+            .navigationTitle("Pokémon")
             
         }
     }
 }
 
-#Preview {
-    PokedexView()
+struct PokedexView_Previews: PreviewProvider {
+    static var previews: some View {
+        PokedexView()
+    }
 }

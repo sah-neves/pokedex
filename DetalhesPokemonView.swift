@@ -16,30 +16,29 @@ struct DetalhesPokemonView: View {
             }
             Text(pokemon.name)
                 .bold()
+                .foregroundColor(.blue)
                 
-            
             Text("ID:\(pokemon.id)")
                 .bold()
+                .foregroundColor(.gray)
+        
+            
+            VStack{
+                Text("HP:\(pokemon.HP)")
+                Text("ATK:\(pokemon.ATK)")
+                Text("DEF:\(pokemon.DEF)")
+                Text("VEL:\(pokemon.Vel)")
+                Text("Special:\(pokemon.Special)")
                 
-            Text("Tipos")
-                .font(.headline)
-            Text("HP:\(pokemon.HP)")
-            
-            
-            Text("ATK:\(pokemon.ATK)")
-
-            Text("DEF:\(pokemon.DEF)")
-
-            Text("VEL:\(pokemon.Vel)")
-
-            Text("Special:\(pokemon.Special)")
-
-            Text("TOTAL:\(pokemon.Total)")
-
-            
-            
-
+                Text("TOTAL:\(pokemon.Total)")
+            }
+            .padding()
+            .background(Color(.systemGray6))
+            .cornerRadius(12)
             Spacer()
+            
+            
+
             
         }
         .padding()
@@ -51,4 +50,3 @@ struct DetalhesPokemonView_Previews: PreviewProvider {
         ContentView()
     }
 }
-

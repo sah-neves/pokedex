@@ -1,12 +1,13 @@
 //
 //  PokedexView.swift
-//  PokedexSabrina
+//  Pokedex
 //
-//  Created by Aluno Mack on 31/07/25.
+//  Created by Sofia Melo on 01/08/25.
 //
 
 import SwiftUI
 
+// Enum com todos os tipos de Pokémon disponíveis
 enum ElementType: String {
     case grass
     case poison
@@ -28,6 +29,7 @@ enum ElementType: String {
     case ghost
 }
 
+// Modelo do Pokémon
 struct Pokemon: Identifiable, Hashable {
     var id: Int
     var name: String
@@ -188,9 +190,11 @@ let pokemons: [Pokemon] = [
     Pokemon(id: 151, name: "mew", types: [.psychic])
 ]
 
+// View principal da Pokédex
 struct PokedexView: View {
     @State private var searchText = ""
-
+    
+    // Filtragem por nome
     var searchResults: [Pokemon] {
         if searchText.isEmpty {
             return pokemons
@@ -200,28 +204,60 @@ struct PokedexView: View {
             }
         }
     }
-
+    
     var body: some View {
         NavigationStack {
             List {
+                // Exibe a lista filtrada de Pokémon
                 ForEach(searchResults, id: \.self) { pokemon in
-                    NavigationLink("Detalhes", destination: DetalhesPokemonView(pokemon: pokemon))
-                        HStack {
-                                  AsyncImage(url: URL(string: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/\(pokemon.id).png")) { image in
-                                      image.image
-                                  }
-                                    Text(pokemon.name.capitalized)
-                                      
-                      }
+                    NavigationLink(destination: DetalhesPokemonView(pokemon: pokemon)) {
+                        HStack(alignment: .center, spacing: 16) {
+                            // Imagem do Pokémon
+                            AsyncImage(url: URL(string: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/\(pokemon.id).png")) { image in
+                                image.image
+                            }
+                            VStack(alignment: .leading, spacing: 8) {
+                                // Nome do Pokémon
+                                Text(pokemon.name.capitalized)
+                                    .font(.headline)
+                                    .padding(.top, 20)
+                                
+                                // Tipagem do Pokémon
+                                HStack {
+                                    Text("Tipagem:")
+                                        .font(.subheadline)
+                                        .foregroundColor(.gray)
+                                        
+                                    ZStack {
+                                        RoundedRectangle(cornerSize: CGSize(width: 7, height: 7))
+                                            .frame(width: 100)
+                                            .foregroundColor(Color.blue.opacity(0.2))
+                                        
+                                        VStack {
+                                            // Exibe um ou dois tipos
+                                            if pokemon.types.count == 1 {
+                                                Text(pokemon.types.first!.rawValue.capitalized)
+                                            } else if pokemon.types.count == 2 {
+                                                Text(pokemon.types.first!.rawValue.capitalized)
+                                                Text(pokemon.types.last!.rawValue.capitalized)
+                                            }
+                                        }
+                                    }
+                                }
+                                .padding(.vertical, 8)
+                            }
+                        }
+                    }
+                    // Barra de busca
+                    .searchable(text: $searchText)
+                    .navigationTitle("Pokémon")
                 }
             }
-            .searchable(text: $searchText)
-            .navigationTitle("Pokémon")
-            
         }
     }
 }
 
+// Preview para SwiftUI
 struct PokedexView_Previews: PreviewProvider {
     static var previews: some View {
         PokedexView()
